@@ -46,29 +46,25 @@
 
             // fungsi untuk simpan/update ke localStorage
             function simpanBarang(foto = "") {
-                // cari barang yang sama (misalnya berdasarkan nama+jenis+rak)
-                let index = inventaris.findIndex(
-                    item =>
-                        item.nama.toLowerCase() === nama.toLowerCase() &&
-                        item.jenis.toLowerCase() === jenis.toLowerCase() &&
-                        item.rak === rak
-                );
+                let formData = new FormData();
+                formData.append("nama", nama);
+                formData.append("jenis", jenis);
+                formData.append("jumlah", jumlah);
+                formData.append("rak", rak);
+                formData.append("foto", foto);
 
-                if (index !== -1) {
-                    // kalau sudah ada → update stok
-                    inventaris[index].jumlah =
-                        parseInt(inventaris[index].jumlah) + jumlah;
-                    if (foto) inventaris[index].foto = foto; // update foto jika ada
-                } else {
-                    // kalau belum ada → tambah barang baru
-                    let barang = { nama, jenis, jumlah, rak, foto };
-                    inventaris.push(barang);
-                }
-
-                localStorage.setItem("inventaris", JSON.stringify(inventaris));
-                alert("Barang berhasil disimpan!");
-                document.querySelectorAll("input, select").forEach(el => (el.value = ""));
+                fetch("http://localhost:8000/pkm/simpan.php", {
+                    method: "POST",
+                    body: formData
+                })
+                    .then(res => res.text())
+                    .then(data => {
+                        alert(data);
+                        document.querySelectorAll("input, select").forEach(el => el.value = "");
+                    })
+                    .catch(err => console.error(err));
             }
+
 
             // kalau ada upload foto → baca dulu
             if (fotoInput) {

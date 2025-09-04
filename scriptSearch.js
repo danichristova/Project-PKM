@@ -1,45 +1,49 @@
-let inventaris = JSON.parse(localStorage.getItem("inventaris")) || [];
+let inventaris = [];
 let selectedIndex = null;
-let actionType = null; // "hapus" atau "pinjam"
+let actionType = null;
 let currentPage = 1;
 const itemsPerPage = 10;
+
+// Ambil data dari MySQL
+async function fetchInventaris() {
+    const res = await fetch("http://localhost:8000/pkm/ambil.php");
+    inventaris = await res.json();
+    tampilkanBarang();
+}
 
 function tampilkanBarang() {
     const daftar = document.getElementById("daftar");
     daftar.innerHTML = "";
 
-    // Filter search
     const searchValue = document.getElementById("searchInput").value.toLowerCase();
     const rakFilter = document.getElementById("filterRak").value.toLowerCase();
 
     let filtered = inventaris.filter(item => {
-        let cocokSearch = item.nama.toLowerCase().includes(searchValue) || item.jenis.toLowerCase().includes(searchValue);
+        let cocokSearch = item.nama.toLowerCase().includes(searchValue) ||
+                          item.jenis.toLowerCase().includes(searchValue);
         let cocokRak = rakFilter === "" || item.rak.toLowerCase() === rakFilter;
         return cocokSearch && cocokRak;
     });
 
-    // Pagination
     const totalPages = Math.ceil(filtered.length / itemsPerPage);
     if (currentPage > totalPages) currentPage = totalPages || 1;
     const start = (currentPage - 1) * itemsPerPage;
     const end = start + itemsPerPage;
     const pageItems = filtered.slice(start, end);
 
-    pageItems.forEach((item, index) => {
+    pageItems.forEach((item) => {
         daftar.innerHTML += `
           <div class="item">
             <strong>${item.nama}</strong><br>
             (${item.jenis})<br>
             Stok: ${item.jumlah}<br>
             ${item.rak}<br>
-            ${item.foto ? `<img src="${item.foto}">` : ""}<br>
-            <button onclick="openModal(${inventaris.indexOf(item)}, 'hapus')">Hapus</button>
-            <button onclick="openModal(${inventaris.indexOf(item)}, 'pinjam')">Pinjam</button>
+            <button onclick="openModal(${item.id}, 'hapus')">Hapus</button>
+            <button onclick="openModal(${item.id}, 'pinjam')">Pinjam</button>
           </div>
         `;
     });
 
-    // Render pagination buttons
     const pagination = document.getElementById("pagination");
     pagination.innerHTML = "";
     if (totalPages > 1) {
@@ -54,8 +58,8 @@ function goToPage(page) {
     tampilkanBarang();
 }
 
-function openModal(index, type) {
-    selectedIndex = index;
+function openModal(id, type) {
+    selectedIndex = id;
     actionType = type;
     const modal = document.getElementById("modalForm");
     const title = document.getElementById("modalTitle");
@@ -68,11 +72,13 @@ function openModal(index, type) {
 
     if (type === "hapus") {
         title.innerText = "Hapus Barang";
-        message.innerText = `Masukkan nama peminjam untuk menghapus barang "${inventaris[index].nama}"?`;
+        message.innerText = `Masukkan nama peminjam untuk menghapus barang ini`;
         jumlahInput.style.display = "none";
     } else {
+        // cari data stok
+        const barang = inventaris.find(i => i.id == id);
         title.innerText = "Pinjam Barang";
-        message.innerText = `Masukkan nama peminjam & jumlah pinjam (Stok tersedia: ${inventaris[index].jumlah})`;
+        message.innerText = `Masukkan nama peminjam & jumlah pinjam (Stok tersedia: ${barang.jumlah})`;
         jumlahInput.style.display = "block";
     }
     modal.style.display = "flex";
@@ -82,35 +88,43 @@ function closeModal() {
     document.getElementById("modalForm").style.display = "none";
 }
 
-function confirmAction() {
+async function confirmAction() {
     const nama = document.getElementById("namaPeminjam").value.trim();
     const jumlahInput = document.getElementById("jumlahPinjam");
+
     if (!nama) {
         alert("Nama peminjam harus diisi!");
         return;
     }
 
+    let formData = new FormData();
+    formData.append("id", selectedIndex);
+    formData.append("nama", nama);
+
     if (actionType === "hapus") {
-        inventaris.splice(selectedIndex, 1);
-        alert(`Barang berhasil dihapus oleh ${nama}`);
+        const res = await fetch("http://localhost:8000/pkm/hapus.php", {
+            method: "POST",
+            body: formData
+        });
+        alert(await res.text());
     } else if (actionType === "pinjam") {
         let jumlah = parseInt(jumlahInput.value);
         if (isNaN(jumlah) || jumlah <= 0) {
             alert("Masukkan jumlah yang valid!");
             return;
         }
-        if (jumlah > inventaris[selectedIndex].jumlah) {
-            alert("Jumlah melebihi stok tersedia!");
-            return;
-        }
-        inventaris[selectedIndex].jumlah -= jumlah;
-        alert(`${nama} berhasil meminjam ${jumlah} pcs ${inventaris[selectedIndex].nama}`);
+        formData.append("jumlah", jumlah);
+
+        const res = await fetch("http://localhost:8000/pkm/pinjam.php", {
+            method: "POST",
+            body: formData
+        });
+        alert(await res.text());
     }
 
-    localStorage.setItem("inventaris", JSON.stringify(inventaris));
     closeModal();
-    tampilkanBarang();
+    fetchInventaris(); // refresh data
 }
 
 // Load awal
-tampilkanBarang();
+fetchInventaris();
