@@ -1,0 +1,131 @@
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: #f4f6f9;
+    margin: 0;
+    padding: 0;
+    color: #333;
+    flex-direction: column; /* elemen tersusun ke bawah */
+    justify-content: center; /* rata tengah secara vertikal */
+}
+
+header {
+    background: linear-gradient(135deg, #0077b6, #00b4d8);
+    color: white;
+    padding: 20px;
+    text-align: center;
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.2);
+}
+
+h1 {
+    margin: 0;
+    font-size: 1.8rem;
+}
+
+.menu {
+    background: #ffffffcc;
+    backdrop-filter: blur(10px);
+    padding: 30px 40px;
+    border-radius: 20px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+    text-align: center;
+}
+
+.menu a {
+    display: inline-block;
+    margin: 12px 0;
+    padding: 12px 25px;
+    background: #4facfe;
+    color: #fff;
+    text-decoration: none;
+    font-size: 18px;
+    font-weight: 600;
+    border-radius: 12px;
+    transition: 0.3s ease;
+}
+
+.menu a:hover {
+    background: #00c6ff;
+    transform: translateY(-3px);
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+}
+
+.form-container {
+    background: #ffffffcc;
+    backdrop-filter: blur(10px);
+    padding: 30px 40px;
+    border-radius: 20px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+    width: 90%;
+    max-width: 400px;
+    text-align: center;
+}
+
+.form-container h2 {
+    margin-bottom: 20px;
+    color: #333;
+}
+
+.form-container input,
+.form-container select {
+    width: 100%;
+    padding: 12px;
+    margin: 8px 0;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    outline: none;
+    font-size: 16px;
+    transition: 0.3s ease;
+}
+
+.form-container input:focus,
+.form-container select:focus {
+    border-color: #4facfe;
+    box-shadow: 0 0 8px rgba(79, 172, 254, 0.4);
+}
+
+.form-container button {
+    width: 100%;
+    padding: 12px;
+    background: #4facfe;
+    color: #fff;
+    border: none;
+    border-radius: 12px;
+    font-size: 18px;
+    font-weight: 600;
+    cursor: pointer;
+    margin-top: 15px;
+    transition: 0.3s ease;
+}
+
+.form-container button:hover {
+    background: #00c6ff;
+    transform: translateY(-3px);
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+}
+
+.form-container a {
+    display: inline-block;
+    margin-top: 15px;
+    text-decoration: none;
+    color: #4facfe;
+    font-weight: 600;
+    transition: 0.3s ease;
+}
+
+.form-container a:hover {
+    color: #00c6ff;
+    text-decoration: underline;
+}
+
+
+
+.item img {
+    max-width: 120px;
+    /* atur sesuai kebutuhan */
+    max-height: 120px;
+    object-fit: cover;
+    /* supaya gambar tetap proporsional */
+    margin-top: 5px;
+    border-radius: 8px;
+    /* opsional, biar lebih rapi */
+}

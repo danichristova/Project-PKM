@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PKM Input Barang</title>
+    <link rel="stylesheet" href="stylesInput.css">
+</head>
+
+<body>
+    <header>
+        <h1>📦 PKM Storage Management System</h1>
+    </header>
+
+    <!-- Form tambah barang -->
+    <div class="form-container" style="text-align: center;">
+        <h2>Tambah Barang</h2>
+        <input type="text" id="nama" placeholder="Nama Barang" required><br>
+        <input type="text" id="jenis" placeholder="Jenis Barang" required><br>
+        <input type="number" id="jumlah" placeholder="Jumlah Barang" required><br>
+        <input type="file" id="foto" accept="image/*"><br>
+        <select id="rak">
+            <option value="">Pilih Rak</option>
+            <option value="Rak 1">Rak 1</option>
+            <option value="Rak 2">Rak 2</option>
+            <option value="Rak 3">Rak 3</option>
+        </select><br>
+        <button onclick="tambahBarang()">Simpan</button><br>
+        <a href="index.html">Kembali</a>
+    </div>
+    <script>
+        let inventaris = JSON.parse(localStorage.getItem("inventaris")) || [];
+
+        function tambahBarang() {
+            const nama = document.getElementById("nama").value.trim();
+            const jenis = document.getElementById("jenis").value.trim();
+            const jumlah = parseInt(document.getElementById("jumlah").value);
+            const rak = document.getElementById("rak").value;
+            const fotoInput = document.getElementById("foto").files[0];
+
+            if (!nama || !jenis || !jumlah || !rak) {
+                alert("Lengkapi semua data!");
+                return;
+            }
+
+            // fungsi untuk simpan/update ke localStorage
+            function simpanBarang(foto = "") {
+                // cari barang yang sama (misalnya berdasarkan nama+jenis+rak)
+                let index = inventaris.findIndex(
+                    item =>
+                        item.nama.toLowerCase() === nama.toLowerCase() &&
+                        item.jenis.toLowerCase() === jenis.toLowerCase() &&
+                        item.rak === rak
+                );
+
+                if (index !== -1) {
+                    // kalau sudah ada → update stok
+                    inventaris[index].jumlah =
+                        parseInt(inventaris[index].jumlah) + jumlah;
+                    if (foto) inventaris[index].foto = foto; // update foto jika ada
+                } else {
+                    // kalau belum ada → tambah barang baru
+                    let barang = { nama, jenis, jumlah, rak, foto };
+                    inventaris.push(barang);
+                }
+
+                localStorage.setItem("inventaris", JSON.stringify(inventaris));
+                alert("Barang berhasil disimpan!");
+                document.querySelectorAll("input, select").forEach(el => (el.value = ""));
+            }
+
+            // kalau ada upload foto → baca dulu
+            if (fotoInput) {
+                let reader = new FileReader();
+                reader.onload = function (e) {
+                    simpanBarang(e.target.result);
+                };
+                reader.readAsDataURL(fotoInput);
+            } else {
+                simpanBarang();
+            }
+        }
+    </script>
+
+</body>
+
+</html>

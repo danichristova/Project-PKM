@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cari Barang PKM</title>
+    <link rel="stylesheet" href="stylesSearch.css">
+</head>
+
+<body>
+    <header>
+        <h1><a href="index.html">📦 PKM Storage Management System</a></h1>
+    </header>
+
+    <!-- Search & Filter -->
+    <div class="form-container">
+        <input type="text" id="searchInput" placeholder="🔍 Cari nama atau jenis..." onkeyup="tampilkanBarang()">
+        <select id="filterRak" onchange="tampilkanBarang()">
+            <option value="">📂 Semua Rak</option>
+            <option value="rak 1">Rak 1</option>
+            <option value="rak 2">Rak 2</option>
+            <option value="rak 3">Rak 3</option>
+        </select>
+    </div>
+
+    <!-- Daftar barang -->
+    <div class="list-container">
+        <h2>Daftar Barang</h2>
+        <div id="daftar" class="grid"></div>
+        <div id="pagination" class="pagination"></div>
+    </div>
+
+    <!-- Modal -->
+    <div class="modal" id="modalForm">
+        <div class="modal-content">
+            <h3 id="modalTitle">Konfirmasi</h3>
+            <p id="modalMessage"></p>
+            <input type="text" id="namaPeminjam" placeholder="Masukkan nama pengambil">
+            <input type="number" id="jumlahPinjam" placeholder="Jumlah pinjam" style="display:none;">
+            <div class="modal-buttons">
+                <button class="btn-cancel" onclick="closeModal()">Batal</button>
+                <button class="btn-ok" onclick="confirmAction()">OK</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="scriptSearch.js"></script>
+</body>
+
+</html>

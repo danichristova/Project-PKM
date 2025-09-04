@@ -1,0 +1,192 @@
+/* Umum */
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: #f4f6f9;
+    margin: 0;
+    padding: 0;
+    color: #333;
+}
+
+header {
+    background: linear-gradient(135deg, #0077b6, #00b4d8);
+    color: white;
+    padding: 20px;
+    text-align: center;
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.2);
+}
+
+h1 {
+    margin: 0;
+    font-size: 1.8rem;
+}
+
+h1 a {
+  color: inherit;        /* mengikuti warna h1 */
+  text-decoration: none; /* hilangkan garis bawah */
+  cursor: pointer;       /* ganti kursor jadi tangan */
+}
+
+h1 a:hover {
+  text-decoration: underline; /* opsional, biar ada efek saat di-hover */
+}
+
+h2 {
+    margin: 20px 0 10px;
+    color: #0077b6;
+}
+
+/* Form Search & Filter */
+.form-container {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin: 20px;
+}
+
+.form-container input,
+.form-container select {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    min-width: 200px;
+    font-size: 14px;
+}
+
+.form-container input:focus,
+.form-container select:focus {
+    outline: none;
+    border-color: #00b4d8;
+    box-shadow: 0 0 6px rgba(0, 180, 216, 0.3);
+}
+
+/* Daftar Barang */
+.list-container {
+    max-width: 1000px;
+    margin: auto;
+    padding: 10px;
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 15px;
+}
+
+.item {
+    background: #fff;
+    border-radius: 12px;
+    padding: 15px;
+    text-align: center;
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s ease-in-out;
+}
+
+.item:hover {
+    transform: translateY(-5px);
+}
+
+.item img {
+    max-width: 100%;
+    max-height: 120px;
+    border-radius: 8px;
+    margin: 10px 0;
+}
+
+.item button {
+    padding: 6px 12px;
+    margin: 5px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 13px;
+    transition: background 0.2s ease;
+}
+
+.item button:first-of-type {
+    background: #e63946;
+    color: white;
+}
+
+.item button:last-of-type {
+    background: #0077b6;
+    color: white;
+}
+
+.item button:hover {
+    opacity: 0.85;
+}
+
+/* Pagination */
+.pagination {
+    text-align: center;
+    margin: 20px 0;
+}
+
+.pagination button {
+    margin: 0 3px;
+    padding: 6px 12px;
+    border-radius: 6px;
+    border: none;
+    background: #0077b6;
+    color: white;
+    cursor: pointer;
+}
+
+.pagination button:disabled {
+    background: #ccc;
+    cursor: not-allowed;
+}
+
+/* Modal */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 100;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    justify-content: center;
+    align-items: center;
+}
+
+.modal-content {
+    background: white;
+    padding: 25px;
+    border-radius: 12px;
+    text-align: center;
+    width: 90%;
+    max-width: 400px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.modal-content input {
+    width: 90%;
+    padding: 10px;
+    margin: 8px 0;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+}
+
+.modal-buttons {
+    margin-top: 15px;
+}
+
+.btn-cancel {
+    background: #e63946;
+    color: white;
+}
+
+.btn-ok {
+    background: #0077b6;
+    color: white;
+}
+
+.modal-content button {
+    padding: 8px 16px;
+    margin: 0 8px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+}

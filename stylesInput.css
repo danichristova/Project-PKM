@@ -1,0 +1,130 @@
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: #f4f6f9;
+    margin: 0;
+    padding: 0;
+    color: #333;
+    flex-direction: column; /* elemen tersusun ke bawah */
+    display: flex;
+    align-items: center;     /* rata tengah horizontal */
+    
+}
+
+header {
+    width: 100%;
+    background: linear-gradient(135deg, #0077b6, #00b4d8);
+    color: white;
+    padding: 20px;
+    text-align: center;
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.2);
+}
+
+h1 {
+    margin: 0;
+    font-size: 1.8rem;
+}
+
+
+
+.menu {
+    background: #ffffffcc;
+    backdrop-filter: blur(10px);
+    padding: 30px 40px;
+    border-radius: 0px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+    text-align: center;
+}
+
+.menu a {
+    display: inline-block;
+    margin: 12px 0;
+    padding: 12px 25px;
+    background: #4facfe;
+    color: #fff;
+    text-decoration: none;
+    font-size: 18px;
+    font-weight: 600;
+    border-radius: 12px;
+    transition: 0.3s ease;
+    text-align: center;
+}
+
+.menu a:hover {
+    background: #00c6ff;
+    transform: translateY(-3px);
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+    text-align: center;
+}
+
+.form-container {
+    background: #ffffffcc;
+    backdrop-filter: blur(10px);
+    padding: 30px 40px;
+    border-radius: 0px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+    width: 100%;
+    text-align: center;
+}
+
+.form-container h2 {
+    margin-bottom: 20px;
+    color: #333;
+    text-align: center;
+}
+
+.form-container input,
+.form-container select {
+    width: 25%;
+    padding: 12px;
+    margin: 8px 0;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    outline: none;
+    font-size: 16px;
+    transition: 0.3s ease;
+    
+}
+
+.form-container input:focus,
+.form-container select:focus {
+    border-color: #4facfe;
+    box-shadow: 0 0 8px rgba(79, 172, 254, 0.4);
+    width: 25%;
+    
+}
+
+.form-container button {
+    width: 30%;
+    padding: 12px;
+    background: #4facfe;
+    color: #fff;
+    border: none;
+    border-radius: 12px;
+    font-size: 18px;
+    font-weight: 600;
+    cursor: pointer;
+    margin-top: 15px;
+    transition: 0.3s ease;
+    text-align: center;
+}
+
+.form-container button:hover {
+    background: #00c6ff;
+    transform: translateY(-3px);
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+}
+
+.form-container a {
+    display: inline-block;
+    margin-top: 15px;
+    text-decoration: none;
+    color: #4facfe;
+    font-weight: 600;
+    transition: 0.3s ease;
+}
+
+.form-container a:hover {
+    color: #00c6ff;
+    text-decoration: underline;
+}
+
